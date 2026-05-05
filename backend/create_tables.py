@@ -1,13 +1,8 @@
-"""Standalone script to create all database tables.
-
-Run this once before starting the app:
-    python create_tables.py
-"""
+"""Create all database tables. Run once before starting the app."""
 
 import asyncio
-import sys
+import traceback
 
-# Load env before anything else
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -16,7 +11,6 @@ from app.models.recipe import Recipe, Ingredient, Instruction, NutritionInfo  # 
 
 
 async def create_all_tables():
-    """Create all tables defined in the ORM models."""
     print("Connecting to database...")
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
@@ -27,6 +21,6 @@ async def create_all_tables():
 if __name__ == "__main__":
     try:
         asyncio.run(create_all_tables())
-    except Exception as e:
-        print(f"Failed to create tables: {e}", file=sys.stderr)
-        sys.exit(1)
+    except Exception:
+        traceback.print_exc()
+        exit(1)
