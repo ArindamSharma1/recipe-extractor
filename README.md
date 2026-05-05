@@ -1,6 +1,6 @@
 # Recipe Extractor & Meal Planner
 
-Paste a recipe URL, get back structured data — ingredients, steps, nutrition, substitutions, shopping list. All extracted by AI.
+Paste a recipe URL, get back structured data - ingredients, steps, nutrition, substitutions, shopping list. All extracted by AI.
 
 Built with FastAPI, LangChain (Gemini), React, and PostgreSQL (Neon).
 
@@ -30,21 +30,21 @@ cd ..
 bash start.sh
 ```
 
-That's it — open http://localhost:5173
+That's it - open http://localhost:5173
 
 ---
 
 ## What it does
 
-- **Extract tab** — Paste any recipe URL. The app scrapes it, sends the text to Gemini, and pulls out the recipe in a clean format. You get ingredients (with quantities separated), step-by-step instructions, difficulty rating, and a confidence score showing how much data it found.
+- **Extract tab** - Paste any recipe URL. The app scrapes it, sends the text to Gemini, and pulls out the recipe in a clean format. You get ingredients (with quantities separated), step-by-step instructions, difficulty rating, and a confidence score showing how much data it found.
 
-- **History tab** — All your extracted recipes in a table. You can view details, delete entries, or select multiple recipes to generate a combined shopping list (the meal plan feature).
+- **History tab** - All your extracted recipes in a table. You can view details, delete entries, or select multiple recipes to generate a combined shopping list (the meal plan feature).
 
-- **Nutrition** — Each recipe gets a per-serving nutrition estimate based on the actual ingredients.
+- **Nutrition** - Each recipe gets a per-serving nutrition estimate based on the actual ingredients.
 
-- **Substitutions** — AI suggests 3 ingredient swaps with reasons (like "use coconut oil instead of butter for dairy-free").
+- **Substitutions** - AI suggests 3 ingredient swaps with reasons (like "use coconut oil instead of butter for dairy-free").
 
-- **Shopping list** — Ingredients sorted by store section (produce, dairy, pantry, etc).
+- **Shopping list** - Ingredients sorted by store section (produce, dairy, pantry, etc).
 
 ---
 
@@ -80,7 +80,7 @@ URL → Scraper → Gemini (3 calls) → PostgreSQL → API response
 ```
 
 1. You submit a URL
-2. The scraper fetches the page and strips out scripts, nav, footer — keeps just the text
+2. The scraper fetches the page and strips out scripts, nav, footer - keeps just the text
 3. Three separate LLM calls run:
    - Recipe extraction (title, ingredients, steps)
    - Nutrition estimation
@@ -122,19 +122,19 @@ recipe-extractor/
 
 ## Security stuff
 
-Not just a homework project — these are real security measures:
+Not just a homework project - these are real security measures:
 
-- **SSRF protection** — The scraper blocks requests to private IPs (127.x, 10.x, 192.168.x, 169.254.x). Without this, someone could submit `http://169.254.169.254/` and read cloud metadata.
+- **SSRF protection** - The scraper blocks requests to private IPs (127.x, 10.x, 192.168.x, 169.254.x). Without this, someone could submit `http://169.254.169.254/` and read cloud metadata.
 
-- **Content capping** — Scraped text is cut at 50,000 chars before going to the LLM. This limits prompt injection from malicious pages.
+- **Content capping** - Scraped text is cut at 50,000 chars before going to the LLM. This limits prompt injection from malicious pages.
 
-- **No raw SQL anywhere** — Everything uses SQLAlchemy ORM, so queries are parameterized by default. SQL injection isn't possible.
+- **No raw SQL anywhere** - Everything uses SQLAlchemy ORM, so queries are parameterized by default. SQL injection isn't possible.
 
-- **Rate limiting** — 10 requests/minute on the extract endpoint via slowapi.
+- **Rate limiting** - 10 requests/minute on the extract endpoint via slowapi.
 
-- **UUID primary keys** — Recipe IDs are UUIDs, not auto-incrementing integers. Harder to guess or enumerate.
+- **UUID primary keys** - Recipe IDs are UUIDs, not auto-incrementing integers. Harder to guess or enumerate.
 
-- **Input validation** — Pydantic validates every request body. Invalid data gets rejected before it touches the database.
+- **Input validation** - Pydantic validates every request body. Invalid data gets rejected before it touches the database.
 
 ---
 
@@ -146,7 +146,7 @@ The LLM prompts are in `backend/app/prompts/`. Some decisions worth noting:
 
 - **Chain-of-thought.** The extraction prompt tells the LLM to think step by step before outputting JSON. This helps with complex recipes.
 
-- **Anti-hallucination rules.** Every prompt says "if you can't find it, use null — don't guess." The LLM also self-reports a confidence score.
+- **Anti-hallucination rules.** Every prompt says "if you can't find it, use null - don't guess." The LLM also self-reports a confidence score.
 
 - **Low temperature (0.3).** We want factual extraction, not creative writing. Higher temps make ingredient quantities drift.
 
