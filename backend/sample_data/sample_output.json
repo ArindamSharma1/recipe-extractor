@@ -1,0 +1,95 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "url": "https://www.allrecipes.com/recipe/10813/best-chocolate-chip-cookies/",
+  "title": "Best Chocolate Chip Cookies",
+  "cuisine": "American",
+  "difficulty": "easy",
+  "prep_time": "20 minutes",
+  "cook_time": "10 minutes",
+  "total_time": "30 minutes",
+  "servings": 24,
+  "extraction_confidence": 0.95,
+  "cached": false,
+  "created_at": "2024-01-15T12:30:00Z",
+  "ingredients": [
+    { "id": "ing-001", "quantity": "1", "unit": "cup", "item": "butter, softened", "category": "dairy" },
+    { "id": "ing-002", "quantity": "1", "unit": "cup", "item": "white sugar", "category": "pantry" },
+    { "id": "ing-003", "quantity": "1", "unit": "cup", "item": "packed brown sugar", "category": "pantry" },
+    { "id": "ing-004", "quantity": "2", "unit": null, "item": "eggs", "category": "dairy" },
+    { "id": "ing-005", "quantity": "2", "unit": "teaspoons", "item": "vanilla extract", "category": "pantry" },
+    { "id": "ing-006", "quantity": "3", "unit": "cups", "item": "all-purpose flour", "category": "pantry" },
+    { "id": "ing-007", "quantity": "1", "unit": "teaspoon", "item": "baking soda", "category": "pantry" },
+    { "id": "ing-008", "quantity": "2", "unit": "teaspoons", "item": "hot water", "category": null },
+    { "id": "ing-009", "quantity": "1/2", "unit": "teaspoon", "item": "salt", "category": "pantry" },
+    { "id": "ing-010", "quantity": "2", "unit": "cups", "item": "semisweet chocolate chips", "category": "pantry" },
+    { "id": "ing-011", "quantity": "1", "unit": "cup", "item": "chopped walnuts", "category": "pantry" }
+  ],
+  "instructions": [
+    { "id": "step-001", "step_number": 1, "instruction_text": "Preheat oven to 350 degrees F (175 degrees C)." },
+    { "id": "step-002", "step_number": 2, "instruction_text": "Cream together the butter, white sugar, and brown sugar until smooth." },
+    { "id": "step-003", "step_number": 3, "instruction_text": "Beat in the eggs one at a time, then stir in the vanilla." },
+    { "id": "step-004", "step_number": 4, "instruction_text": "Dissolve baking soda in hot water. Add to batter along with salt." },
+    { "id": "step-005", "step_number": 5, "instruction_text": "Stir in flour, chocolate chips, and nuts." },
+    { "id": "step-006", "step_number": 6, "instruction_text": "Drop large spoonfuls onto ungreased pans." },
+    { "id": "step-007", "step_number": 7, "instruction_text": "Bake for about 10 minutes in the preheated oven, or until edges are nicely browned." }
+  ],
+  "nutrition": {
+    "calories": 295,
+    "protein": "3g",
+    "carbs": "38g",
+    "fat": "15g",
+    "fiber": "1g",
+    "note": "Nutritional values are estimates based on ingredient quantities and may vary depending on specific brands and preparation methods."
+  },
+  "substitutions": [
+    {
+      "original": "butter",
+      "substitute": "coconut oil",
+      "reason": "Provides similar fat content and richness with a subtle tropical flavor",
+      "dietary_benefit": "dairy-free"
+    },
+    {
+      "original": "all-purpose flour",
+      "substitute": "almond flour",
+      "reason": "Works well in cookies, provides a nutty flavor and denser texture",
+      "dietary_benefit": "gluten-free, lower carb"
+    },
+    {
+      "original": "white sugar",
+      "substitute": "coconut sugar",
+      "reason": "Lower glycemic index while maintaining caramel-like sweetness",
+      "dietary_benefit": "lower glycemic"
+    }
+  ],
+  "shopping_list": {
+    "produce": [],
+    "dairy": ["butter (1 cup)", "eggs (2)"],
+    "meat_seafood": [],
+    "pantry": [
+      "white sugar (1 cup)",
+      "brown sugar (1 cup)",
+      "vanilla extract (2 tsp)",
+      "all-purpose flour (3 cups)",
+      "baking soda (1 tsp)",
+      "salt (1/2 tsp)",
+      "semisweet chocolate chips (2 cups)",
+      "chopped walnuts (1 cup)"
+    ],
+    "bakery": [],
+    "other": []
+  },
+  "related_recipes": [
+    {
+      "name": "Double Chocolate Brownies",
+      "reason": "Uses similar base ingredients and pairs perfectly as another chocolate dessert option"
+    },
+    {
+      "name": "Oatmeal Raisin Cookies",
+      "reason": "Classic cookie variety that uses the same butter-sugar base with a wholesome twist"
+    },
+    {
+      "name": "Peanut Butter Blossoms",
+      "reason": "Another crowd-favorite cookie recipe that complements chocolate chip cookies on a dessert platter"
+    }
+  ]
+}

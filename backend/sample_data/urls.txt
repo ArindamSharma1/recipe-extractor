@@ -1,0 +1,17 @@
+# Tested Recipe URLs
+# These URLs have been verified to work with the extraction pipeline.
+
+# American — Cookies
+https://www.allrecipes.com/recipe/10813/best-chocolate-chip-cookies/
+
+# Italian — Pizza
+https://www.simplyrecipes.com/recipes/homemade_pizza/
+
+# Indian — Curry
+https://www.bbcgoodfood.com/recipes/chicken-tikka-masala
+
+# Thai — Noodles
+https://www.seriouseats.com/pad-thai-for-beginners-recipe
+
+# French — Soup
+https://www.foodnetwork.com/recipes/tyler-florence/french-onion-soup-recipe-1952576
