@@ -1,11 +1,4 @@
-"""Async SQLAlchemy engine and session factory.
-
-Uses asyncpg as the driver for fully asynchronous database access.
-All database interactions go through the ORM — no raw SQL — which
-prevents SQL injection by default via parameterized queries.
-
-The DATABASE_URL must include ?ssl=require for Neon cloud PostgreSQL.
-"""
+"""Async SQLAlchemy engine + session factory for Neon PostgreSQL."""
 
 from __future__ import annotations
 
@@ -24,16 +17,30 @@ from app.config import settings
 
 logger = logging.getLogger(__name__)
 
-# ── SSL context for Neon cloud PostgreSQL ────────────────────────────
-# Neon requires SSL connections. We create a permissive SSL context
-# so asyncpg can connect without needing local CA certificates.
+# Neon requires SSL. asyncpg needs an actual ssl.SSLContext object,
+# not just "ssl=require" in the URL — so we strip the URL param
+# and pass the context directly via connect_args.
 ssl_context = ssl_module.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl_module.CERT_NONE
 
-# ── Engine ────────────────────────────────────────────────────────────
+
+def _clean_database_url(url: str) -> str:
+    """Remove ssl/sslmode query params from the URL.
+
+    asyncpg doesn't understand these as URL params — SSL must be
+    configured via connect_args instead.
+    """
+    # Strip ?ssl=require or &ssl=require (and sslmode variants)
+    import re
+    url = re.sub(r"[?&]ssl(mode)?=\w+", "", url)
+    # If we stripped the only param, clean up trailing ?
+    url = url.rstrip("?")
+    return url
+
+
 engine = create_async_engine(
-    settings.database_url,
+    _clean_database_url(settings.database_url),
     echo=False,
     pool_size=5,
     max_overflow=10,
@@ -41,7 +48,6 @@ engine = create_async_engine(
     connect_args={"ssl": ssl_context},
 )
 
-# ── Session factory ──────────────────────────────────────────────────
 async_session_factory = async_sessionmaker(
     bind=engine,
     class_=AsyncSession,
@@ -49,17 +55,12 @@ async_session_factory = async_sessionmaker(
 )
 
 
-# ── Declarative base ────────────────────────────────────────────────
 class Base(DeclarativeBase):
-    """Shared declarative base for all ORM models."""
+    pass
 
 
-# ── Dependency ──────────────────────────────────────────────────────
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
-    """FastAPI dependency that yields an async DB session.
-
-    Automatically commits on success and rolls back on exception.
-    """
+    """Yields an async DB session. Commits on success, rolls back on error."""
     async with async_session_factory() as session:
         try:
             yield session
@@ -70,11 +71,7 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
 
 
 async def init_db() -> None:
-    """Create all tables if they don't exist.
-
-    Called on app startup. Uses the ORM metadata to generate
-    CREATE TABLE IF NOT EXISTS statements.
-    """
+    """Create all tables if they don't exist (runs on startup)."""
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-    logger.info("Database tables initialized.")
+    logger.info("Database tables ready.")
